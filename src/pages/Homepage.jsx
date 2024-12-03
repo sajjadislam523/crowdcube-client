@@ -1,14 +1,17 @@
+import { useContext } from "react";
+import { ThemeContext } from "../context/ThemeProvider";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 import schoolDonation from "../assets/sliderImage/schoolDonation.png";
 import waterDonation from "../assets/sliderImage/donationWater.jpeg";
 import fundingBusiness from "../assets/sliderImage/fundingBusiness.webp";
 
 const Homepage = () => {
+    const { theme } = useContext(ThemeContext);
+
     const slides = [
         {
             id: 1,
@@ -34,13 +37,26 @@ const Homepage = () => {
     ];
 
     return (
-        <div>
-            {/* Hero Section */}
-            <div className="py-8 bg-gradient-to-r from-blue-50 to-green-50">
-                <h1 className="mb-6 text-3xl font-extrabold text-center text-blue-800 md:text-4xl">
+        <div
+            className={`${
+                theme === "light" ? "bg-gray-50" : "bg-gray-800 text-white"
+            }`}
+        >
+            <div
+                className={`py-8 ${
+                    theme === "light"
+                        ? "bg-gradient-to-r from-blue-50 to-green-50"
+                        : "bg-gray-900 text-white"
+                }`}
+            >
+                <h1 className="mb-6 text-3xl font-extrabold text-center md:text-4xl">
                     Empower Dreams Through Crowdfunding
                 </h1>
-                <p className="mb-8 text-center text-gray-600 md:text-lg">
+                <p
+                    className={`mb-8 text-center ${
+                        theme === "light" ? "text-gray-500" : "text-gray-400"
+                    } md:text-lg`}
+                >
                     Join our community to make a difference—one campaign at a
                     time.
                 </p>
@@ -74,9 +90,8 @@ const Homepage = () => {
                 </Swiper>
             </div>
 
-            {/* Features Section */}
-            <div className="px-6 py-10 bg-white md:px-12 lg:px-20">
-                <h2 className="mb-6 text-2xl font-extrabold text-center text-gray-800 md:text-3xl">
+            <div className="px-6 py-10 md:px-12 lg:px-20">
+                <h2 className="mb-6 text-2xl font-extrabold text-center md:text-3xl">
                     How You Can Help
                 </h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
@@ -100,23 +115,38 @@ const Homepage = () => {
                     </div>
                     <div className="p-6 text-center border-l-4 border-yellow-500 rounded-lg shadow-md bg-yellow-50">
                         <h3 className="text-xl font-semibold text-yellow-600">
-                            Track Your Impact
+                            Share Your Story
                         </h3>
                         <p className="mt-2 text-gray-700">
-                            Monitor the success and impact of your
-                            contributions.
+                            Share your experiences to inspire others and spread
+                            hope.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* CTA Section */}
-            <div className="py-12 bg-gradient-to-r from-blue-100 via-green-100 to-yellow-100">
+            <div
+                className={`py-12 ${
+                    theme === "light"
+                        ? "bg-gradient-to-r from-blue-100 via-green-100 to-yellow-100"
+                        : "bg-gray-900"
+                }`}
+            >
                 <div className="max-w-4xl px-6 mx-auto text-center">
-                    <h3 className="mb-4 text-2xl font-bold text-gray-800 md:text-3xl">
+                    <h3
+                        className={`mb-4 text-2xl font-bold ${
+                            theme === "light" ? "text-gray-700" : "text-white"
+                        } md:text-3xl`}
+                    >
                         Ready to Make a Difference?
                     </h3>
-                    <p className="mb-6 text-gray-600 md:text-lg">
+                    <p
+                        className={`mb-6 ${
+                            theme === "light"
+                                ? "text-gray-600"
+                                : "text-gray-400"
+                        } md:text-lg`}
+                    >
                         Start a campaign or explore projects you can support
                         today.
                     </p>

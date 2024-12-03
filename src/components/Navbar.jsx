@@ -1,12 +1,20 @@
 import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const Navbar = () => {
     const { user, Logout } = useContext(AuthContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
 
     return (
-        <nav className="sticky top-0 z-50 text-white shadow-lg bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 font-nunito">
+        <nav
+            className={`sticky top-0 z-50 shadow-lg font-nunito ${
+                theme === "light"
+                    ? " bg-gray-100 text-gray-800"
+                    : "bg-gray-800 text-gray-100"
+            }`}
+        >
             <div className="container flex items-center justify-between p-4 mx-auto">
                 <Link to="/" className="text-3xl font-extrabold tracking-wider">
                     CrowdCube
@@ -79,8 +87,18 @@ const Navbar = () => {
                     )}
                 </ul>
 
-                {/* Authentication Section */}
                 <div className="flex items-center space-x-4">
+                    <button
+                        onClick={toggleTheme}
+                        className={`px-4 py-2 text-sm font-bold transition duration-300 rounded-md shadow ${
+                            theme === "light"
+                                ? "text-black hover:bg-gray-200"
+                                : "text-white bg-gray-500 hover:bg-gray-600"
+                        }`}
+                    >
+                        {theme === "light" ? "🌙" : "☀️"}
+                    </button>
+
                     {user ? (
                         <div className="flex items-center space-x-3">
                             <img
