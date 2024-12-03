@@ -5,35 +5,45 @@ import { AuthContext } from "../context/AuthProvider";
 const Navbar = () => {
     const { user, Logout } = useContext(AuthContext);
 
-    const links = (
-        <div className="flex items-center gap-4">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/campaigns">All Campaigns</NavLink>
-            <NavLink to="/addCampaign">Add New Campaign</NavLink>
-            <NavLink to="/myCampaign">My Campaign</NavLink>
-            <NavLink to="/myDonations">My Donations</NavLink>
-        </div>
-    );
-
     return (
-        <nav className="p-4 text-white font-nunito">
-            <div className="container flex items-center justify-between mx-auto">
-                {/* Website Logo/Name */}
-                <Link to="/" className="text-2xl font-bold">
+        <nav className="sticky top-0 z-50 text-white shadow-lg bg-gradient-to-r from-blue-600 via-green-500 to-yellow-400 font-nunito">
+            <div className="container flex items-center justify-between p-4 mx-auto">
+                <Link to="/" className="text-3xl font-extrabold tracking-wider">
                     CrowdCube
                 </Link>
 
-                {/* Navigation Links */}
-                <ul className="flex space-x-4">
-                    <li>{links}</li>
-
+                <ul className="items-center hidden space-x-6 md:flex">
+                    <li>
+                        <NavLink
+                            to="/"
+                            className={({ isActive }) =>
+                                `transition duration-300 hover:text-yellow-200 ${
+                                    isActive ? "underline" : ""
+                                }`
+                            }
+                        >
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                            to="/campaigns"
+                            className={({ isActive }) =>
+                                `transition duration-300 hover:text-yellow-200 ${
+                                    isActive ? "underline" : ""
+                                }`
+                            }
+                        >
+                            All Campaigns
+                        </NavLink>
+                    </li>
                     {user && (
                         <>
                             <li>
                                 <NavLink
                                     to="/addCampaign"
                                     className={({ isActive }) =>
-                                        `hover:underline ${
+                                        `transition duration-300 hover:text-yellow-200 ${
                                             isActive ? "underline" : ""
                                         }`
                                     }
@@ -45,7 +55,7 @@ const Navbar = () => {
                                 <NavLink
                                     to="/myCampaign"
                                     className={({ isActive }) =>
-                                        `hover:underline ${
+                                        `transition duration-300 hover:text-yellow-200 ${
                                             isActive ? "underline" : ""
                                         }`
                                     }
@@ -57,7 +67,7 @@ const Navbar = () => {
                                 <NavLink
                                     to="/myDonations"
                                     className={({ isActive }) =>
-                                        `hover:underline ${
+                                        `transition duration-300 hover:text-yellow-200 ${
                                             isActive ? "underline" : ""
                                         }`
                                     }
@@ -72,16 +82,16 @@ const Navbar = () => {
                 {/* Authentication Section */}
                 <div className="flex items-center space-x-4">
                     {user ? (
-                        <div className="relative">
+                        <div className="flex items-center space-x-3">
                             <img
                                 src={user.photoURL || "/default-avatar.png"}
                                 alt="User Avatar"
-                                className="w-10 h-10 rounded-full cursor-pointer"
+                                className="w-10 h-10 border-2 border-white rounded-full shadow-lg cursor-pointer"
                                 title={user.displayName || "User"}
                             />
                             <button
                                 onClick={Logout}
-                                className="px-4 py-2 ml-4 bg-red-500 rounded hover:bg-red-600"
+                                className="px-4 py-2 text-sm font-bold text-white transition duration-300 bg-red-500 rounded-md shadow hover:bg-red-600"
                             >
                                 Log out
                             </button>
@@ -90,19 +100,23 @@ const Navbar = () => {
                         <>
                             <Link
                                 to="/login"
-                                className="px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200"
+                                className="px-4 py-2 text-sm font-bold text-blue-600 transition duration-300 bg-white rounded-md shadow hover:bg-gray-200"
                             >
                                 Log in
                             </Link>
                             <Link
                                 to="/register"
-                                className="px-4 py-2 text-blue-500 bg-white rounded hover:bg-gray-200"
+                                className="px-4 py-2 text-sm font-bold text-blue-600 transition duration-300 bg-white rounded-md shadow hover:bg-gray-200"
                             >
                                 Register
                             </Link>
                         </>
                     )}
                 </div>
+
+                <button className="block px-4 py-2 transition duration-300 bg-blue-500 rounded shadow md:hidden hover:bg-blue-600">
+                    Menu
+                </button>
             </div>
         </nav>
     );
