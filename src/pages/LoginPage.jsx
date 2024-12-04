@@ -1,7 +1,108 @@
+import { useContext } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/ThemeProvider";
+import { AuthContext } from "../context/AuthProvider";
+import Swal from "sweetalert2";
+
 const LoginPage = () => {
+    const { theme } = useContext(ThemeContext);
+    const { logIn, handleGoogleLogIn, setUser } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        const form = new FormData(e.target);
+        const email = form.get("email");
+        const password = form.get("password");
+
+        logIn(email, password)
+            .then((res) => {
+                setUser(res.data);
+                Swal.fire("Success", "User Logged in successfully", "success");
+                navigate("/");
+            })
+            .catch((err) => {
+                Swal.fire("Error", err.response.data.message, "error");
+            });
+    };
+
+    const googleLogin = () => {
+        handleGoogleLogIn()
+            .then((res) => {
+                setUser(res.user);
+                Swal.fire("Success", "Logged in successfully", "success");
+                navigate("/");
+            })
+            .catch((err) => {
+                Swal.fire("Error", err.message, "error");
+            });
+    };
+
     return (
-        <div>
-            <h1>this is login page</h1>
+        <div className="py-8 font-nunito">
+            <h1 className="py-8 text-3xl font-bold text-center">Login here!</h1>
+            <div className="w-full max-w-sm mx-auto shadow-2xl card bg-base-100 shrink-0">
+                <form onSubmit={handleLogin} className="card-body">
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Email</span>
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="email"
+                            className="input input-bordered"
+                            required
+                            name="email"
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Password</span>
+                        </label>
+                        <input
+                            type="password"
+                            placeholder="password"
+                            className="input input-bordered"
+                            required
+                            name="password"
+                        />
+
+                        <label className="label">
+                            <span className="label-text-alt">
+                                Don&apos;t have an account?
+                            </span>
+                            <Link
+                                to="/register"
+                                className="ml-2 text-sm text-blue-500 link link-hover"
+                            >
+                                Register here
+                            </Link>
+                        </label>
+                    </div>
+                    <div className="mt-6 form-control">
+                        <button type="submit" className="btn btn-primary">
+                            Login
+                        </button>
+                        <button
+                            onClick={googleLogin}
+                            className={`flex items-center justify-center w-full gap-3 p-3 my-4 transition duration-300 border rounded-lg shadow-md 
+            ${
+                theme === "light"
+                    ? "bg-white text-gray-700 hover:bg-gray-100"
+                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+            }`}
+                        >
+                            <FcGoogle className="text-2xl" />
+                            <span className="text-sm font-medium">
+                                Sign in with Google
+                            </span>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

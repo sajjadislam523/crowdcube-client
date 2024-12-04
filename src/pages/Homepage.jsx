@@ -126,7 +126,7 @@ const Homepage = () => {
             </div>
 
             <div
-                className={`py-12 ${
+                className={`py-12 border-b-2 ${
                     theme === "light"
                         ? "bg-gradient-to-r from-blue-100 via-green-100 to-yellow-100"
                         : "bg-gray-900"
