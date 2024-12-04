@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
+import { RxAvatar } from "react-icons/rx";
 
 const Navbar = () => {
-    const { user, Logout } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
 
     return (
@@ -102,13 +103,13 @@ const Navbar = () => {
                     {user ? (
                         <div className="flex items-center space-x-3">
                             <img
-                                src={user.photoURL || "/default-avatar.png"}
+                                src={user.photoURL || <RxAvatar />}
                                 alt="User Avatar"
                                 className="w-10 h-10 border-2 border-white rounded-full shadow-lg cursor-pointer"
                                 title={user.displayName || "User"}
                             />
                             <button
-                                onClick={Logout}
+                                onClick={logOut}
                                 className="px-4 py-2 text-sm font-bold text-white transition duration-300 bg-red-500 rounded-md shadow hover:bg-red-600"
                             >
                                 Log out
