@@ -20,7 +20,7 @@ const LoginPage = () => {
 
         logIn(email, password)
             .then((res) => {
-                setUser(res.data);
+                setUser(res.user);
                 Swal.fire("Success", "User Logged in successfully", "success");
                 navigate("/");
             })

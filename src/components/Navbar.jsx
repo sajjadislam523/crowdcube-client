@@ -103,7 +103,7 @@ const Navbar = () => {
                     {user ? (
                         <div className="flex items-center space-x-3">
                             <img
-                                src={user.photoURL || <RxAvatar />}
+                                src={user.photo || <RxAvatar />}
                                 alt="User Avatar"
                                 className="w-10 h-10 border-2 border-white rounded-full shadow-lg cursor-pointer"
                                 title={user.displayName || "User"}
