@@ -1,7 +1,8 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const CampaignDetail = () => {
     const campaign = useLoaderData();
+    const navigate = useNavigate();
 
     if (!campaign) {
         return (
@@ -21,7 +22,14 @@ const CampaignDetail = () => {
         goal,
         raised,
         expirationDate,
+        _id,
     } = campaign;
+
+    const handleDonateClick = () => {
+        navigate(`/campaigns/${_id}/donate`, {
+            state: { campaign },
+        });
+    };
 
     return (
         <div className="max-w-5xl px-4 py-8 mx-auto">
@@ -72,9 +80,7 @@ const CampaignDetail = () => {
 
                     <button
                         className="w-full px-6 py-2 font-bold text-white transition duration-300 bg-blue-500 rounded-lg sm:w-auto hover:bg-blue-600"
-                        onClick={() =>
-                            alert("Thank you for supporting this campaign!")
-                        }
+                        onClick={handleDonateClick}
                     >
                         Donate Now
                     </button>
