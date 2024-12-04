@@ -1,7 +1,13 @@
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const CampaignCard = ({ campaigns }) => {
-    const { title, description, goal, raised, creator } = campaigns;
+    const { _id, title, description, goal, raised, creator } = campaigns;
+    const navigate = useNavigate();
+
+    const handleViewDetails = (id) => {
+        navigate(`/campaigns/${id}`);
+    };
 
     return (
         <div className="flex flex-col p-6 bg-white rounded-lg shadow-md campaign-card">
@@ -14,7 +20,10 @@ const CampaignCard = ({ campaigns }) => {
             <p className="mb-4 text-sm text-gray-500">
                 <span className="font-medium">Owner:</span> {creator}
             </p>
-            <button className="px-4 py-2 mt-auto text-white bg-blue-500 rounded hover:bg-blue-600">
+            <button
+                onClick={() => handleViewDetails(_id)}
+                className="px-4 py-2 mt-auto text-white bg-blue-500 rounded hover:bg-blue-600"
+            >
                 View Details
             </button>
         </div>
@@ -28,6 +37,7 @@ CampaignCard.propTypes = {
         goal: PropTypes.number.isRequired,
         raised: PropTypes.number.isRequired,
         creator: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
     }).isRequired,
 };
 
