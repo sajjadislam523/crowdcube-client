@@ -9,7 +9,7 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
 
         const form = new FormData(e.target);
@@ -31,9 +31,33 @@ const RegisterPage = () => {
             return;
         }
 
-        createNewUser(email, password)
-            .then((res) => {
-                const user = res.user;
+        try {
+            const res = await createNewUser(email, password);
+            const user = res.user;
+
+            await updateUserProfile({
+                name,
+                photo,
+            });
+
+            const updatedUser = { ...user, displayName: name, photoURL: photo };
+            setUser(updatedUser);
+
+            const newUser = {
+                name,
+                email,
+                photo,
+            };
+
+            const response = await fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newUser),
+            });
+
+            if (response.ok) {
                 Swal.fire({
                     title: "Success!",
                     text: "Account created successfully!",
@@ -41,32 +65,24 @@ const RegisterPage = () => {
                     confirmButtonText: "Close",
                 });
 
-                updateUserProfile({
-                    name,
-                    photo,
-                })
-                    .then(() => {
-                        const updatedUser = { ...user, name, photo };
-                        setUser(updatedUser);
-                        navigate("/");
-                    })
-                    .catch((profileError) => {
-                        Swal.fire({
-                            title: "Error!",
-                            text: profileError.message,
-                            icon: "error",
-                            confirmButtonText: "Close",
-                        });
-                    });
-            })
-            .catch((error) => {
+                navigate("/mycampaign"); // Redirect to the campaigns page
+            } else {
+                const errorMessage = await response.text();
                 Swal.fire({
                     title: "Error!",
-                    text: error.message,
+                    text: errorMessage || "Failed to save user data.",
                     icon: "error",
                     confirmButtonText: "Close",
                 });
+            }
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: error.message,
+                icon: "error",
+                confirmButtonText: "Close",
             });
+        }
     };
 
     return (
