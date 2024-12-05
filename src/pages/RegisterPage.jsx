@@ -65,7 +65,7 @@ const RegisterPage = () => {
                     confirmButtonText: "Close",
                 });
 
-                navigate("/mycampaign"); // Redirect to the campaigns page
+                navigate("/");
             } else {
                 const errorMessage = await response.text();
                 Swal.fire({

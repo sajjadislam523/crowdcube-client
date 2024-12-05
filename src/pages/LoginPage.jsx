@@ -29,10 +29,57 @@ const LoginPage = () => {
             });
     };
 
+    const saveUserToDatabase = async (user) => {
+        try {
+            // Check if the user's email already exists in the database
+            const emailCheckRes = await fetch(
+                "http://localhost:5000/users/" + encodeURIComponent(user.email),
+                {
+                    method: "GET",
+                }
+            );
+
+            if (emailCheckRes.ok) {
+                const emailExists = await emailCheckRes.json();
+
+                if (emailExists) {
+                    console.log("User with the same email already exists.");
+                    return;
+                }
+            } else {
+                console.error("Failed to check email existence.");
+                return;
+            }
+
+            // Save the user data to the database
+            const res = await fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: user.displayName,
+                    email: user.email,
+                    photo: user.photoURL,
+                }),
+            });
+
+            if (!res.ok) {
+                console.error("Failed to save the user data");
+            } else {
+                console.log("User data saved successfully.");
+            }
+        } catch (err) {
+            console.error("Error saving the data to the database", err.message);
+        }
+    };
+
     const googleLogin = () => {
         handleGoogleLogIn()
             .then((res) => {
                 setUser(res.user);
+                saveUserToDatabase(res.user);
+
                 Swal.fire("Success", "Logged in successfully", "success");
                 navigate("/");
             })
