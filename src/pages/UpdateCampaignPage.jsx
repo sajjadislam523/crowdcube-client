@@ -1,13 +1,20 @@
-import { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthProvider";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Swal from "sweetalert2";
 
-const UpdateCampaignPage = () => {
-    const { user } = useContext(AuthContext);
+export default function UpdateCampaignPage() {
+    // Fetch campaign data from loader
     const campaign = useLoaderData();
-    const [formData, setFormData] = useState(campaign);
     const navigate = useNavigate();
+
+    const [formData, setFormData] = useState({
+        title: campaign?.title || "",
+        thumbnail: campaign?.thumbnail || "",
+        type: campaign?.type || "",
+        description: campaign?.description || "",
+        minimumDonation: campaign?.minimumDonation || "",
+        expiredDate: campaign?.expiredDate || "",
+    });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -19,7 +26,7 @@ const UpdateCampaignPage = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/campaign/${campaign._id}`,
+                `http://localhost:5000/campaigns/${campaign._id}`,
                 {
                     method: "PUT",
                     headers: {
@@ -28,6 +35,7 @@ const UpdateCampaignPage = () => {
                     body: JSON.stringify(formData),
                 }
             );
+
             if (response.ok) {
                 Swal.fire({
                     title: "Success!",
@@ -35,7 +43,7 @@ const UpdateCampaignPage = () => {
                     icon: "success",
                     confirmButtonText: "Done",
                 });
-                navigate("/campaigns"); // Redirect to a list of campaigns or home
+                navigate("/campaigns");
             } else {
                 throw new Error("Failed to update campaign");
             }
@@ -65,7 +73,7 @@ const UpdateCampaignPage = () => {
                     <input
                         type="text"
                         name="title"
-                        value={formData.title}
+                        value={formData.title || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
@@ -78,7 +86,7 @@ const UpdateCampaignPage = () => {
                     <input
                         type="text"
                         name="thumbnail"
-                        value={formData.thumbnail}
+                        value={formData.thumbnail || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
@@ -91,7 +99,7 @@ const UpdateCampaignPage = () => {
                     <input
                         type="text"
                         name="type"
-                        value={formData.type}
+                        value={formData.type || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
@@ -103,7 +111,7 @@ const UpdateCampaignPage = () => {
                     </label>
                     <textarea
                         name="description"
-                        value={formData.description}
+                        value={formData.description || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
@@ -116,7 +124,7 @@ const UpdateCampaignPage = () => {
                     <input
                         type="number"
                         name="minimumDonation"
-                        value={formData.minimumDonation}
+                        value={formData.minimumDonation || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
@@ -129,23 +137,10 @@ const UpdateCampaignPage = () => {
                     <input
                         type="date"
                         name="expiredDate"
-                        value={formData.expiredDate}
+                        value={formData.expiredDate || ""}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
-                    />
-                </div>
-                <div className="mb-4">
-                    <label className="block mb-2 font-bold text-gray-700">
-                        Creator Info:
-                    </label>
-                    <input
-                        type="text"
-                        name="creator"
-                        value={user.email || ""}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded"
-                        readOnly={true}
                     />
                 </div>
                 <button
@@ -157,6 +152,4 @@ const UpdateCampaignPage = () => {
             </form>
         </div>
     );
-};
-
-export default UpdateCampaignPage;
+}
