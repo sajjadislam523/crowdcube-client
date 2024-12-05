@@ -110,7 +110,7 @@ const MyCampaignPage = () => {
                                     </td>
                                     <td className="flex px-4 py-2 space-x-2 border border-gray-300">
                                         <Link
-                                            to={`/update-campaign/${campaign._id}`}
+                                            to={`/updateCampaign/${campaign._id}`}
                                             className="btn btn-primary btn-sm"
                                         >
                                             Update
