@@ -83,43 +83,47 @@ const CampaignDetail = () => {
     };
 
     return (
-        <div className="max-w-5xl px-4 py-8 mx-auto">
-            <div className="overflow-hidden bg-white rounded-lg shadow-md">
+        <div className="max-w-4xl px-4 py-6 mx-auto">
+            <div className="flex flex-col overflow-hidden border rounded-lg shadow-md sm:flex-row">
                 {thumbnail && (
-                    <div className="w-full h-64 sm:h-80 md:h-96">
-                        <img
-                            src={thumbnail}
-                            alt={title}
-                            className="object-cover w-full h-full"
-                        />
+                    <div className="flex-shrink-0 p-4">
+                        <div className="w-full h-40 sm:h-48 md:h-56">
+                            <img
+                                src={thumbnail}
+                                alt={title}
+                                className="object-cover w-full h-full rounded-md"
+                            />
+                        </div>
                     </div>
                 )}
-                <div className="p-6">
-                    <h1 className="mb-4 text-4xl font-bold text-gray-800">
-                        {title}
-                    </h1>
-                    <p className="mb-6 text-lg text-gray-700">{description}</p>
-
-                    <div className="grid grid-cols-1 gap-6 mb-6 sm:grid-cols-2">
-                        <div className="p-4 bg-gray-100 rounded-lg">
-                            <p className="text-lg font-semibold text-gray-600">
+                <div className="flex flex-col justify-between flex-grow p-6">
+                    <div>
+                        <h1 className="mb-3 text-2xl font-bold sm:text-3xl">
+                            {title}
+                        </h1>
+                        <p className="mb-4 text-sm sm:text-base">
+                            {description}
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 mb-4">
+                        <div className="p-2 rounded-lg">
+                            <p className="text-sm font-semibold sm:text-base">
                                 Goal
                             </p>
-                            <p className="text-2xl font-bold text-green-500">
+                            <p className="text-base font-bold text-green-500 sm:text-xl">
                                 ${goal}
                             </p>
                         </div>
-                        <div className="p-4 bg-gray-100 rounded-lg">
-                            <p className="text-lg font-semibold text-gray-600">
+                        <div className="p-2 rounded-lg">
+                            <p className="text-base font-semibold sm:text-base">
                                 Raised
                             </p>
-                            <p className="text-2xl font-bold text-blue-500">
+                            <p className="text-lg font-bold text-blue-500 sm:text-xl">
                                 ${raisedAmount}
                             </p>
                         </div>
                     </div>
-
-                    <div className="mb-4 text-gray-600 text-md">
+                    <div className="mb-4 text-sm sm:text-base">
                         <p>
                             <strong>Creator:</strong> {creator}
                         </p>
@@ -128,9 +132,8 @@ const CampaignDetail = () => {
                             {new Date(expirationDate).toLocaleDateString()}
                         </p>
                     </div>
-
                     <button
-                        className="w-full px-6 py-2 font-bold text-white transition duration-300 bg-blue-500 rounded-lg sm:w-auto hover:bg-blue-600"
+                        className="w-full px-4 py-2 text-sm font-bold text-white transition duration-300 bg-blue-500 rounded-lg sm:w-auto sm:text-base hover:bg-blue-600"
                         onClick={handleDonateClick}
                     >
                         Donate Now
