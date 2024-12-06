@@ -61,6 +61,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         email,
         setEmail,
+        photoURL: user?.photoURL,
     };
     return (
         <AuthContext.Provider value={authData}>{children}</AuthContext.Provider>

@@ -24,7 +24,7 @@ const CampaignCard = ({ campaigns }) => {
                 onClick={() => handleViewDetails(_id)}
                 className="px-4 py-2 mt-auto text-white bg-blue-500 rounded hover:bg-blue-600"
             >
-                View Details
+                See more
             </button>
         </div>
     );
