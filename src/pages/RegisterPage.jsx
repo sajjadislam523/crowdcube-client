@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
         const form = new FormData(e.target);
         const name = form.get("name");
-        const photo = form.get("photo");
+        const photoURL = form.get("photoURL");
         const email = form.get("email");
         const password = form.get("password");
 
@@ -34,13 +34,17 @@ const RegisterPage = () => {
             const res = await createNewUser(email, password);
             const user = res.user;
 
-            const updatedUser = { ...user, displayName: name, photoURL: photo };
+            const updatedUser = {
+                ...user,
+                displayName: name,
+                photoURL: photoURL,
+            };
             setUser(updatedUser);
 
             const newUser = {
                 name,
                 email,
-                photo,
+                photoURL,
                 password,
             };
 
@@ -120,7 +124,7 @@ const RegisterPage = () => {
                             placeholder="photo url"
                             className="input input-bordered"
                             required
-                            name="photo"
+                            name="photoURL"
                         />
                     </div>
                     <div className="form-control">

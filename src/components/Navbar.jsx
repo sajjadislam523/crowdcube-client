@@ -102,12 +102,16 @@ const Navbar = () => {
 
                     {user ? (
                         <div className="flex items-center space-x-3">
-                            <img
-                                src={user.photo || <RxAvatar />}
-                                alt="User Avatar"
-                                className="w-10 h-10 border-2 border-white rounded-full shadow-lg cursor-pointer"
-                                title={user.displayName || "User"}
-                            />
+                            {user.photoURL ? (
+                                <img
+                                    src={user.photoURL}
+                                    alt="User Avatar"
+                                    className="w-10 h-10 border-2 border-white rounded-full shadow-lg cursor-pointer"
+                                    title={user.displayName || "User"}
+                                />
+                            ) : (
+                                <RxAvatar className="w-10 h-10 text-gray-400 rounded-full cursor-pointer" />
+                            )}
                             <button
                                 onClick={logOut}
                                 className="px-4 py-2 text-sm font-bold text-white transition duration-300 bg-red-500 rounded-md shadow hover:bg-red-600"
