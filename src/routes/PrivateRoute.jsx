@@ -2,12 +2,13 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import Loading from "../components/Loading";
 
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
 
     if (loading) {
-        return <h1>loading....!</h1>;
+        return <Loading />;
     }
 
     if (user) {
