@@ -11,6 +11,7 @@ export default function AddCampaign() {
         description: "",
         minimumDonation: "",
         expiredDate: "",
+        goal: "",
         creator: user?.email,
     });
 
@@ -45,6 +46,7 @@ export default function AddCampaign() {
                     description: "",
                     minimumDonation: "",
                     expiredDate: "",
+                    goal: "",
                     creator: "",
                 });
             } else {
@@ -141,6 +143,19 @@ export default function AddCampaign() {
                         type="date"
                         name="expiredDate"
                         value={formData.expiredDate}
+                        onChange={handleChange}
+                        className="w-full p-2 border rounded"
+                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block mb-2 font-bold text-gray-700">
+                        Goal Amount:
+                    </label>
+                    <input
+                        type="number"
+                        name="goal"
+                        value={formData.goal}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
