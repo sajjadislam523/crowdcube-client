@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const MyCampaignPage = () => {
     const { user } = useContext(AuthContext);
@@ -9,7 +10,6 @@ const MyCampaignPage = () => {
 
     useEffect(() => {
         if (!user) {
-            // Handle the case where the user is not logged in
             return;
         }
 
@@ -64,7 +64,7 @@ const MyCampaignPage = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     return (

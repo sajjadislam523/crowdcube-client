@@ -4,8 +4,7 @@ import { AuthContext } from "../context/AuthProvider";
 import { useContext, useState } from "react";
 
 const RegisterPage = () => {
-    const { setUser, createNewUser, updateUserProfile } =
-        useContext(AuthContext);
+    const { setUser, createNewUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
 
@@ -35,11 +34,6 @@ const RegisterPage = () => {
             const res = await createNewUser(email, password);
             const user = res.user;
 
-            await updateUserProfile({
-                name,
-                photo,
-            });
-
             const updatedUser = { ...user, displayName: name, photoURL: photo };
             setUser(updatedUser);
 
@@ -47,6 +41,7 @@ const RegisterPage = () => {
                 name,
                 email,
                 photo,
+                password,
             };
 
             const response = await fetch("http://localhost:5000/users", {

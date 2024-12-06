@@ -2,11 +2,9 @@ import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
     onAuthStateChanged,
-    sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
-    updateProfile,
 } from "firebase/auth";
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
@@ -42,15 +40,6 @@ const AuthProvider = ({ children }) => {
         return signInWithPopup(auth, provider);
     };
 
-    const updateUserProfile = (data) => {
-        return updateProfile(auth.currentUser, data);
-    };
-
-    const resetPassword = (email) => {
-        setLoading(true);
-        return sendPasswordResetEmail(auth, email);
-    };
-
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
@@ -69,9 +58,7 @@ const AuthProvider = ({ children }) => {
         logIn,
         handleGoogleLogIn,
         loading,
-        updateUserProfile,
         logOut,
-        resetPassword,
         email,
         setEmail,
     };

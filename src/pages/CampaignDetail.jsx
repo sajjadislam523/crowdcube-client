@@ -1,8 +1,12 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
+import { useState, useContext } from "react";
+import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthProvider";
 
 const CampaignDetail = () => {
     const campaign = useLoaderData();
-    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    const [donationAmount, setDonationAmount] = useState(0);
 
     if (!campaign) {
         return (
@@ -15,6 +19,7 @@ const CampaignDetail = () => {
     }
 
     const {
+        _id,
         thumbnail,
         title,
         description,
@@ -22,12 +27,71 @@ const CampaignDetail = () => {
         goal,
         raised,
         expirationDate,
-        _id,
+        donationAmount: campaignDonationAmount,
     } = campaign;
 
-    const handleDonateClick = () => {
-        navigate(`/campaigns/${_id}/donate`, {
-            state: { campaign },
+    if (campaignDonationAmount) {
+        setDonationAmount(campaignDonationAmount);
+    }
+
+    const handleDonateClick = async () => {
+        Swal.fire({
+            title: "Donation Confirmation",
+            text: `Are you sure you want to donate $${donationAmount}?`,
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Yes, donate!",
+            cancelButtonText: "Cancel",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    // Get user details from the context
+                    const loggedInEmail = user.email;
+                    const loggedInName = user.username;
+
+                    // Data to send to the backend
+                    const donationDetails = {
+                        campaignId: _id,
+                        campaignTitle: title,
+                        contributorEmail: loggedInEmail,
+                        contributorName: loggedInName,
+                        amount: donationAmount,
+                    };
+
+                    // Send POST request to the backend to record the donation
+                    const response = await fetch(
+                        "http://localhost:5000/donate",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(donationDetails),
+                        }
+                    );
+
+                    const resultData = await response.json();
+
+                    if (response.ok) {
+                        Swal.fire({
+                            title: "Donation Successful!",
+                            text: `Thank you for your generous donation of $${donationAmount}!`,
+                            icon: "success",
+                            confirmButtonText: "Close",
+                        });
+                    } else {
+                        throw new Error(resultData.error || "Donation failed");
+                    }
+                } catch (error) {
+                    console.error("Error processing donation:", error);
+                    Swal.fire({
+                        title: "Donation Failed",
+                        text: "There was an error processing your donation. Please try again.",
+                        icon: "error",
+                        confirmButtonText: "Close",
+                    });
+                }
+            }
         });
     };
 
