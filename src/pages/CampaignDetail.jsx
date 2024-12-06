@@ -7,10 +7,12 @@ const CampaignDetail = () => {
     const campaign = useLoaderData();
     const { user } = useContext(AuthContext);
     const [donationAmount, setDonationAmount] = useState(0);
+    const [raisedAmount, setRaisedAmount] = useState(0);
 
     useEffect(() => {
         if (campaign && campaign.minimumDonation) {
             setDonationAmount(campaign.minimumDonation);
+            setRaisedAmount(campaign.raised);
         }
     }, [campaign]);
 
@@ -31,7 +33,6 @@ const CampaignDetail = () => {
         description,
         creator,
         goal,
-        raised,
         expirationDate,
         minimumDonation,
     } = campaign;
@@ -60,6 +61,7 @@ const CampaignDetail = () => {
             const resultData = await response.json();
 
             if (response.ok) {
+                setRaisedAmount((prevAmount) => prevAmount + minimumDonation);
                 Swal.fire({
                     title: "Donation Successful!",
                     text: `Thank you for your generous donation of $${donationAmount}!`,
@@ -112,7 +114,7 @@ const CampaignDetail = () => {
                                 Raised
                             </p>
                             <p className="text-2xl font-bold text-blue-500">
-                                ${raised}
+                                ${raisedAmount}
                             </p>
                         </div>
                     </div>
