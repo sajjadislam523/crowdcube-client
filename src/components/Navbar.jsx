@@ -5,8 +5,10 @@ import { ThemeContext } from "../context/ThemeProvider";
 import { RxAvatar } from "react-icons/rx";
 
 const Navbar = () => {
-    const { user, logOut, photoURL } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const { theme, toggleTheme } = useContext(ThemeContext);
+
+    console.log(user);
 
     return (
         <nav
@@ -104,7 +106,7 @@ const Navbar = () => {
                         <div className="flex items-center space-x-3">
                             <img
                                 src={
-                                    photoURL || (
+                                    user.photoURL || (
                                         <RxAvatar className="w-10 h-10 text-gray-400 rounded-full cursor-pointer" />
                                     )
                                 }

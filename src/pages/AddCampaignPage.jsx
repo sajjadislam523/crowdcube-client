@@ -101,14 +101,22 @@ export default function AddCampaign() {
                     <label className="block mb-2 font-bold text-gray-700">
                         Type:
                     </label>
-                    <input
-                        type="text"
+                    <select
                         name="type"
                         value={formData.type}
                         onChange={handleChange}
                         className="w-full p-2 border rounded"
                         required
-                    />
+                    >
+                        <option value="" disabled>
+                            Select Type
+                        </option>
+                        <option value="Personal">Personal</option>
+                        <option value="Community">Community</option>
+                        <option value="Startup">Startup</option>
+                        <option value="Creative">Creative</option>
+                        <option value="Emergency">Emergency</option>
+                    </select>
                 </div>
                 <div className="mb-4">
                     <label className="block mb-2 font-bold text-gray-700">
