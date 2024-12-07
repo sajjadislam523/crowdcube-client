@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const MyDonationsPage = () => {
     const [donations, setDonations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { theme } = useContext(ThemeContext);
 
     const { user } = useContext(AuthContext);
 
@@ -45,7 +47,13 @@ const MyDonationsPage = () => {
     }
 
     return (
-        <div className="container py-10 mx-auto">
+        <div
+            className={`container py-10 px-4 mx-auto ${
+                theme === "dark"
+                    ? "bg-gray-900 text-white"
+                    : "bg-white text-gray-900"
+            }`}
+        >
             <h1 className="mb-6 text-2xl font-bold text-center">
                 My Donations
             </h1>
@@ -53,30 +61,69 @@ const MyDonationsPage = () => {
             {donations.length === 0 ? (
                 <p className="text-center text-gray-500">No donations found.</p>
             ) : (
-                <table className="w-full border border-collapse border-gray-300">
-                    <thead>
-                        <tr className="bg-gray-200">
-                            <th className="px-4 py-2 border border-gray-300">
-                                Campaign Title
-                            </th>
-                            <th className="px-4 py-2 border border-gray-300">
-                                Total Raised
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {donations.map((donation, index) => (
-                            <tr key={index} className="text-center">
-                                <td className="px-4 py-2 border border-gray-300">
-                                    {donation.campaignTitle}
-                                </td>
-                                <td className="px-4 py-2 border border-gray-300">
-                                    ${donation.amount}
-                                </td>
+                <div className="overflow-x-auto">
+                    <table className="w-full border border-collapse border-gray-300">
+                        <thead>
+                            <tr
+                                className={`${
+                                    theme === "dark"
+                                        ? "bg-gray-700"
+                                        : "bg-gray-200"
+                                }`}
+                            >
+                                <th
+                                    className={`px-4 py-2 border border-gray-300 ${
+                                        theme === "dark"
+                                            ? "text-gray-300"
+                                            : "text-gray-800"
+                                    }`}
+                                >
+                                    Campaign Title
+                                </th>
+                                <th
+                                    className={`px-4 py-2 border border-gray-300 ${
+                                        theme === "dark"
+                                            ? "text-gray-300"
+                                            : "text-gray-800"
+                                    }`}
+                                >
+                                    Donated
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {donations.map((donation, index) => (
+                                <tr
+                                    key={index}
+                                    className={`${
+                                        theme === "dark"
+                                            ? "bg-gray-800"
+                                            : "bg-white"
+                                    } `}
+                                >
+                                    <td
+                                        className={`px-4 py-2 border border-gray-300 ${
+                                            theme === "dark"
+                                                ? "text-gray-300"
+                                                : "text-gray-800"
+                                        }`}
+                                    >
+                                        {donation.campaignTitle}
+                                    </td>
+                                    <td
+                                        className={`px-4 py-2 border border-gray-300 ${
+                                            theme === "dark"
+                                                ? "text-gray-300"
+                                                : "text-gray-800"
+                                        }`}
+                                    >
+                                        ${donation.amount}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             )}
         </div>
     );

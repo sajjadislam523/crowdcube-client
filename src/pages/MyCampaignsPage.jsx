@@ -2,11 +2,13 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const MyCampaignPage = () => {
     const { user } = useContext(AuthContext);
     const [campaigns, setCampaigns] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { theme } = useContext(ThemeContext);
 
     useEffect(() => {
         if (!user) {
@@ -68,66 +70,67 @@ const MyCampaignPage = () => {
     }
 
     return (
-        <div className="py-8 font-nunito">
-            <h1 className="text-3xl font-bold text-center">My Campaigns</h1>
+        <div
+            className={`py-12 px-6 font-nunito ${
+                theme === "dark"
+                    ? "bg-gray-900 text-white"
+                    : "bg-white text-gray-900"
+            }`}
+        >
+            <h1 className="mb-8 text-3xl font-bold text-center">
+                My Campaigns
+            </h1>
             {campaigns.length === 0 ? (
-                <p className="text-center">
+                <p className="text-lg text-center">
                     You have not added any campaigns yet.
                 </p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="min-w-full border border-collapse border-gray-300">
-                        <thead>
-                            <tr className="bg-gray-200">
-                                <th className="px-4 py-2 border border-gray-300">
-                                    Title
-                                </th>
-                                <th className="px-4 py-2 border border-gray-300">
-                                    Description
-                                </th>
-                                <th className="px-4 py-2 border border-gray-300">
-                                    Status
-                                </th>
-                                <th className="px-4 py-2 border border-gray-300">
-                                    Actions
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {campaigns.map((campaign) => (
-                                <tr
-                                    key={campaign._id}
-                                    className="border-b hover:bg-gray-100"
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {campaigns.map((campaign) => (
+                        <div
+                            key={campaign._id}
+                            className={`p-6 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${
+                                theme === "dark"
+                                    ? "bg-gray-800 border-gray-700 text-gray-300"
+                                    : "bg-white border-gray-300 text-gray-900"
+                            }`}
+                        >
+                            <h2 className="mb-3 text-2xl font-semibold">
+                                {campaign.title}
+                            </h2>
+                            <p
+                                className={`mb-4 text-sm ${
+                                    theme === "dark"
+                                        ? "text-gray-300"
+                                        : "text-gray-700"
+                                }`}
+                            >
+                                {campaign.description}
+                            </p>
+                            <div className="flex justify-between mt-4">
+                                <Link
+                                    to={`/updateCampaign/${campaign._id}`}
+                                    className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 ${
+                                        theme === "dark"
+                                            ? "bg-blue-600"
+                                            : "bg-blue-500"
+                                    }`}
                                 >
-                                    <td className="px-4 py-2 border border-gray-300">
-                                        {campaign.title}
-                                    </td>
-                                    <td className="px-4 py-2 border border-gray-300">
-                                        {campaign.description}
-                                    </td>
-                                    <td className="px-4 py-2 border border-gray-300">
-                                        {campaign.status}
-                                    </td>
-                                    <td className="flex px-4 py-2 space-x-2 border border-gray-300">
-                                        <Link
-                                            to={`/updateCampaign/${campaign._id}`}
-                                            className="btn btn-primary btn-sm"
-                                        >
-                                            Update
-                                        </Link>
-                                        <button
-                                            onClick={() =>
-                                                handleDelete(campaign._id)
-                                            }
-                                            className="btn btn-danger btn-sm"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                    Update
+                                </Link>
+                                <button
+                                    onClick={() => handleDelete(campaign._id)}
+                                    className={`px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 ${
+                                        theme === "dark"
+                                            ? "bg-red-600"
+                                            : "bg-red-500"
+                                    }`}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
