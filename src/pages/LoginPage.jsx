@@ -25,7 +25,15 @@ const LoginPage = () => {
                 navigate("/");
             })
             .catch((err) => {
-                Swal.fire("Error", err.response.data.message, "error");
+                if (err.code === "auth/user-not-found") {
+                    Swal.fire(
+                        "Error",
+                        "Email not found. Please register first.",
+                        "error"
+                    );
+                } else {
+                    Swal.fire("Error", "Invalid credentials", "error");
+                }
             });
     };
 
