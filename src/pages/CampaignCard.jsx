@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Fade } from "react-awesome-reveal";
 
 const CampaignCard = ({ campaigns }) => {
     const { _id, title, description, goal, raised, creator, thumbnail } =
@@ -31,19 +32,23 @@ const CampaignCard = ({ campaigns }) => {
                 </div>
                 <div className="flex flex-col mt-4 space-y-3">
                     <h2
-                        className={`text-lg font-semibold transition-colors duration-300 hover:text-blue-500 ${
+                        className={`text-lg font-semibold font-nunito transition-colors duration-300 hover:text-blue-500 ${
                             theme === "dark" ? "text-white" : "text-gray-800"
                         }`}
                     >
                         {title}
                     </h2>
-                    <p
-                        className={`text-gray-500 line-clamp-3 ${
-                            theme === "dark" ? "text-gray-300" : "text-gray-500"
-                        }`}
-                    >
-                        {description}
-                    </p>
+                    <Fade duration={800} delay={200} cascade>
+                        <p
+                            className={`text-gray-500 line-clamp-3 ${
+                                theme === "dark"
+                                    ? "text-gray-300"
+                                    : "text-gray-500"
+                            }`}
+                        >
+                            {description}
+                        </p>
+                    </Fade>
                     <div className="flex justify-between text-sm">
                         <p
                             className={`${

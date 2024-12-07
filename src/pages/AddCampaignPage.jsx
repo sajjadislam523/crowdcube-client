@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Typewriter } from "react-simple-typewriter";
 
 export default function AddCampaign() {
     const { user } = useContext(AuthContext);
@@ -67,7 +68,7 @@ export default function AddCampaign() {
 
     return (
         <div
-            className={`container py-10 mx-auto ${
+            className={`container py-10 mx-auto font-nunito ${
                 theme === "dark" ? "bg-gray-800" : "bg-white"
             }`}
         >
@@ -76,7 +77,15 @@ export default function AddCampaign() {
                     theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
             >
-                Add New Campaign
+                <Typewriter
+                    words={["Add New Campaign"]}
+                    loop={true}
+                    cursor
+                    cursorStyle="_"
+                    typeSpeed={80}
+                    deleteSpeed={60}
+                    delaySpeed={1500}
+                />
             </h1>
             <form
                 onSubmit={handleSubmit}

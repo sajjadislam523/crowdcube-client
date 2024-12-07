@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Typewriter } from "react-simple-typewriter";
 
 const MyDonationsPage = () => {
     const [donations, setDonations] = useState([]);
@@ -48,14 +49,22 @@ const MyDonationsPage = () => {
 
     return (
         <div
-            className={`container py-10 px-4 mx-auto ${
+            className={`py-10 px-12 mx-auto h-screen font-nunito ${
                 theme === "dark"
                     ? "bg-gray-900 text-white"
                     : "bg-white text-gray-900"
             }`}
         >
             <h1 className="mb-6 text-2xl font-bold text-center">
-                My Donations
+                <Typewriter
+                    words={["My Donations"]}
+                    loop={true}
+                    cursor
+                    cursorStyle="_"
+                    typeSpeed={80}
+                    deleteSpeed={60}
+                    delaySpeed={1500}
+                />
             </h1>
 
             {donations.length === 0 ? (

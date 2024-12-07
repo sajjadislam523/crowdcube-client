@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "./Loading";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Typewriter } from "react-simple-typewriter";
 
 const RunningCampaigns = () => {
     const [campaigns, setCampaigns] = useState([]);
@@ -38,11 +39,19 @@ const RunningCampaigns = () => {
         >
             <div className="container mx-auto">
                 <h2
-                    className={`mb-6 text-3xl font-bold text-center ${
+                    className={`mb-6 text-3xl font-nunito font-bold text-center ${
                         theme === "light" ? "text-gray-800" : "text-white"
                     }`}
                 >
-                    Running Campaigns
+                    <Typewriter
+                        words={["Running Campaigns"]}
+                        loop={true}
+                        cursor
+                        cursorStyle="_"
+                        typeSpeed={80}
+                        deleteSpeed={60}
+                        delaySpeed={1500}
+                    />
                 </h2>
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {campaigns.map((campaign) => (

@@ -3,6 +3,8 @@ import { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Typewriter } from "react-simple-typewriter";
+import { Fade } from "react-awesome-reveal";
 
 const CampaignDetail = () => {
     const campaign = useLoaderData();
@@ -111,17 +113,27 @@ const CampaignDetail = () => {
                                     : "text-gray-800"
                             } sm:text-4xl`}
                         >
-                            {title}
+                            <Typewriter
+                                words={[title]}
+                                loop={true}
+                                cursor
+                                cursorStyle="_"
+                                typeSpeed={80}
+                                deleteSpeed={60}
+                                delaySpeed={1500}
+                            />
                         </h1>
-                        <p
-                            className={`mb-6 text-md sm:text-lg ${
-                                theme === "dark"
-                                    ? "text-gray-300"
-                                    : "text-gray-700"
-                            }`}
-                        >
-                            {description}
-                        </p>
+                        <Fade duration={800} delay={200} cascade>
+                            <p
+                                className={`mb-6 text-md sm:text-lg ${
+                                    theme === "dark"
+                                        ? "text-gray-300"
+                                        : "text-gray-700"
+                                }`}
+                            >
+                                {description}
+                            </p>
+                        </Fade>
                     </div>
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                         <div

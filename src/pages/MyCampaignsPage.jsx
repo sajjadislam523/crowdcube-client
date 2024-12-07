@@ -3,6 +3,8 @@ import { AuthContext } from "../context/AuthProvider";
 import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
 import { ThemeContext } from "../context/ThemeProvider";
+import { Fade } from "react-awesome-reveal";
+import { Typewriter } from "react-simple-typewriter";
 
 const MyCampaignPage = () => {
     const { user } = useContext(AuthContext);
@@ -71,14 +73,22 @@ const MyCampaignPage = () => {
 
     return (
         <div
-            className={`py-12 px-6 font-nunito ${
+            className={`py-12 px-6 font-nunito h-screen
                 theme === "dark"
                     ? "bg-gray-900 text-white"
                     : "bg-white text-gray-900"
             }`}
         >
             <h1 className="mb-8 text-3xl font-bold text-center">
-                My Campaigns
+                <Typewriter
+                    words={["My Campaigns"]}
+                    loop={true}
+                    cursor
+                    cursorStyle="_"
+                    typeSpeed={80}
+                    deleteSpeed={60}
+                    delaySpeed={1500}
+                />
             </h1>
             {campaigns.length === 0 ? (
                 <p className="text-lg text-center">
@@ -98,15 +108,17 @@ const MyCampaignPage = () => {
                             <h2 className="mb-3 text-2xl font-semibold">
                                 {campaign.title}
                             </h2>
-                            <p
-                                className={`mb-4 text-sm ${
-                                    theme === "dark"
-                                        ? "text-gray-300"
-                                        : "text-gray-700"
-                                }`}
-                            >
-                                {campaign.description}
-                            </p>
+                            <Fade duration={800} delay={100} cascade>
+                                <p
+                                    className={`mb-4 text-sm ${
+                                        theme === "dark"
+                                            ? "text-gray-300"
+                                            : "text-gray-700"
+                                    }`}
+                                >
+                                    {campaign.description}
+                                </p>
+                            </Fade>
                             <div className="flex justify-between mt-4">
                                 <Link
                                     to={`/updateCampaign/${campaign._id}`}
