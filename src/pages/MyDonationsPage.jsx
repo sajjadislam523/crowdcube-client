@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
 import { Typewriter } from "react-simple-typewriter";
+import Loading from "../components/Loading";
 
 const MyDonationsPage = () => {
     const [donations, setDonations] = useState([]);
@@ -40,7 +41,7 @@ const MyDonationsPage = () => {
     }, [user.email]);
 
     if (loading) {
-        return <p className="text-center text-gray-500">Loading...</p>;
+        return <Loading />;
     }
 
     if (error) {
