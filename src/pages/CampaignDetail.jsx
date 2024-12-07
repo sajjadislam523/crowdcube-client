@@ -2,10 +2,12 @@ import { useLoaderData } from "react-router-dom";
 import { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const CampaignDetail = () => {
     const campaign = useLoaderData();
     const { user } = useContext(AuthContext);
+    const { theme } = useContext(ThemeContext);
     const [donationAmount, setDonationAmount] = useState(0);
     const [raisedAmount, setRaisedAmount] = useState(0);
 
@@ -85,51 +87,113 @@ const CampaignDetail = () => {
     };
 
     return (
-        <div className="max-w-4xl px-4 py-6 mx-auto">
-            <div className="flex flex-col overflow-hidden border rounded-lg shadow-md sm:flex-row">
+        <div className="px-4 py-6">
+            <div
+                className={`flex flex-col lg:flex-row gap-6 overflow-hidden border rounded-lg shadow-md ${
+                    theme === "dark" ? "border-gray-700" : "border-gray-200"
+                } ${theme === "dark" ? "bg-gray-800" : "bg-white"}`}
+            >
                 {thumbnail && (
-                    <div className="flex-shrink-0 p-4">
-                        <div className="w-full h-40 sm:h-48 md:h-56">
-                            <img
-                                src={thumbnail}
-                                alt={title}
-                                className="object-cover w-full h-full rounded-md"
-                            />
-                        </div>
+                    <div className="w-full lg:w-1/2">
+                        <img
+                            src={thumbnail}
+                            alt={title}
+                            className="w-full h-64 rounded-md sm:h-full"
+                        />
                     </div>
                 )}
-                <div className="flex flex-col justify-between flex-grow p-6">
+                <div className="flex flex-col justify-between flex-grow p-6 space-y-6">
                     <div>
-                        <h1 className="mb-3 text-2xl font-bold sm:text-3xl">
+                        <h1
+                            className={`mb-4 text-3xl font-bold ${
+                                theme === "dark"
+                                    ? "text-gray-100"
+                                    : "text-gray-800"
+                            } sm:text-4xl`}
+                        >
                             {title}
                         </h1>
-                        <p className="mb-4 text-sm sm:text-base">
+                        <p
+                            className={`mb-6 text-md sm:text-lg ${
+                                theme === "dark"
+                                    ? "text-gray-300"
+                                    : "text-gray-700"
+                            }`}
+                        >
                             {description}
                         </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mb-4">
-                        <div className="p-2 rounded-lg">
-                            <p className="text-sm font-semibold sm:text-base">
+                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                        <div
+                            className={`p-4 rounded-lg ${
+                                theme === "dark" ? "bg-gray-700" : "bg-gray-100"
+                            }`}
+                        >
+                            <p
+                                className={`mb-2 text-sm font-semibold ${
+                                    theme === "dark"
+                                        ? "text-gray-300"
+                                        : "text-gray-600"
+                                }`}
+                            >
                                 Goal
                             </p>
-                            <p className="text-base font-bold text-green-500 sm:text-xl">
+                            <p
+                                className={`text-lg font-bold ${
+                                    theme === "dark"
+                                        ? "text-green-400"
+                                        : "text-green-500"
+                                } sm:text-xl`}
+                            >
                                 ${goal}
                             </p>
                         </div>
-                        <div className="p-2 rounded-lg">
-                            <p className="text-base font-semibold sm:text-base">
+                        <div
+                            className={`p-4 rounded-lg ${
+                                theme === "dark" ? "bg-gray-700" : "bg-gray-100"
+                            }`}
+                        >
+                            <p
+                                className={`mb-2 text-sm font-semibold ${
+                                    theme === "dark"
+                                        ? "text-gray-300"
+                                        : "text-gray-600"
+                                }`}
+                            >
                                 Raised
                             </p>
-                            <p className="text-lg font-bold text-blue-500 sm:text-xl">
+                            <p
+                                className={`text-lg font-bold ${
+                                    theme === "dark"
+                                        ? "text-blue-400"
+                                        : "text-blue-500"
+                                } sm:text-xl`}
+                            >
                                 ${raisedAmount}
                             </p>
                         </div>
                     </div>
-                    <div className="mb-4 text-sm sm:text-base">
-                        <p>
+                    <div
+                        className={`p-4 rounded-lg ${
+                            theme === "dark" ? "bg-gray-700" : "bg-gray-100"
+                        }`}
+                    >
+                        <p
+                            className={`mb-2 text-sm font-semibold ${
+                                theme === "dark"
+                                    ? "text-gray-300"
+                                    : "text-gray-600"
+                            }`}
+                        >
                             <strong>Creator:</strong> {creator}
                         </p>
-                        <p>
+                        <p
+                            className={`text-sm ${
+                                theme === "dark"
+                                    ? "text-gray-300"
+                                    : "text-gray-600"
+                            }`}
+                        >
                             <strong>Expiration Date:</strong>{" "}
                             {new Date(expiredDate).toLocaleDateString()}
                         </p>
@@ -137,8 +201,14 @@ const CampaignDetail = () => {
                     <button
                         className={`w-full px-4 py-2 text-sm font-bold text-white transition duration-300 rounded-lg sm:w-auto sm:text-base ${
                             new Date(expiredDate) < new Date()
-                                ? "bg-gray-400 cursor-not-allowed"
-                                : "bg-blue-500 hover:bg-blue-600"
+                                ? `bg-gray-600 cursor-not-allowed ${
+                                      theme === "dark" ? "dark:bg-gray-600" : ""
+                                  }`
+                                : `bg-blue-500 hover:bg-blue-600 ${
+                                      theme === "dark"
+                                          ? "dark:bg-blue-600 dark:hover:bg-blue-700"
+                                          : ""
+                                  }`
                         }`}
                         onClick={handleDonateClick}
                         disabled={new Date(expiredDate) < new Date()}

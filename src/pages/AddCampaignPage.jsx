@@ -15,6 +15,7 @@ export default function AddCampaign() {
         expiredDate: "",
         goal: "",
         creator: user?.email,
+        userName: user?.displayName,
     });
 
     const handleChange = (e) => {
@@ -249,6 +250,27 @@ export default function AddCampaign() {
                         type="text"
                         name="creator"
                         value={user.email || ""}
+                        onChange={handleChange}
+                        className={`w-full p-2 border rounded ${
+                            theme === "dark"
+                                ? "bg-gray-700 border-gray-600 text-white"
+                                : "border-gray-300 text-gray-900"
+                        }`}
+                        readOnly={true}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label
+                        className={`block mb-2 font-bold ${
+                            theme === "dark" ? "text-gray-300" : "text-gray-700"
+                        }`}
+                    >
+                        Creator Info:
+                    </label>
+                    <input
+                        type="text"
+                        name="creator"
+                        value={user.displayName || ""}
                         onChange={handleChange}
                         className={`w-full p-2 border rounded ${
                             theme === "dark"
