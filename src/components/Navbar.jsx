@@ -41,8 +41,12 @@ const Navbar = () => {
                             <NavLink
                                 to={link.to}
                                 className={({ isActive }) =>
-                                    `transition duration-300 hover:text-yellow-200 ${
-                                        isActive ? "underline" : ""
+                                    `block transition duration-100 ${
+                                        isActive
+                                            ? "underline"
+                                            : theme === "light"
+                                            ? "hover:text-gray-600"
+                                            : "hover:text-yellow-500"
                                     }`
                                 }
                             >
@@ -119,12 +123,12 @@ const Navbar = () => {
                             <NavLink
                                 to={link.to}
                                 className={({ isActive }) =>
-                                    `block transition duration-300 ${
+                                    `block transition duration-100 ${
                                         isActive
                                             ? "underline"
                                             : theme === "light"
                                             ? "hover:text-gray-600"
-                                            : "hover:text-yellow-200"
+                                            : "hover:text-yellow-500"
                                     }`
                                 }
                             >
