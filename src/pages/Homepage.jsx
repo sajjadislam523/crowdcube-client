@@ -8,6 +8,8 @@ import "swiper/css/pagination";
 import schoolDonation from "../assets/sliderImage/schoolDonation.png";
 import waterDonation from "../assets/sliderImage/donationWater.jpeg";
 import fundingBusiness from "../assets/sliderImage/fundingBusiness.webp";
+import { Link } from "react-router-dom";
+import RunningCampaigns from "../components/RunningCampaigns";
 
 const Homepage = () => {
     const { theme } = useContext(ThemeContext);
@@ -76,7 +78,7 @@ const Homepage = () => {
                                     alt={slide.title}
                                     className="object-cover object-center w-full h-64 rounded-lg md:h-80 lg:h-96"
                                 />
-                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-white bg-black bg-opacity-50 rounded-lg">
+                                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-white bg-black bg-opacity-50 rounded-lg font-nunito">
                                     <h2 className="text-lg font-bold md:text-2xl lg:text-3xl">
                                         {slide.title}
                                     </h2>
@@ -91,12 +93,12 @@ const Homepage = () => {
             </div>
 
             <div className="px-6 py-10 md:px-12 lg:px-20">
-                <h2 className="mb-6 text-2xl font-extrabold text-center md:text-3xl">
+                <h2 className="mb-6 text-2xl font-extrabold text-center font-nunito md:text-3xl">
                     How You Can Help
                 </h2>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
                     <div className="p-6 text-center border-l-4 border-blue-500 rounded-lg shadow-md bg-blue-50">
-                        <h3 className="text-xl font-semibold text-blue-600">
+                        <h3 className="text-xl font-semibold text-blue-600 font-nunito">
                             Start a Campaign
                         </h3>
                         <p className="mt-2 text-gray-700">
@@ -105,7 +107,7 @@ const Homepage = () => {
                         </p>
                     </div>
                     <div className="p-6 text-center border-l-4 border-green-500 rounded-lg shadow-md bg-green-50">
-                        <h3 className="text-xl font-semibold text-green-600">
+                        <h3 className="text-xl font-semibold text-green-600 font-nunito">
                             Contribute to Campaigns
                         </h3>
                         <p className="mt-2 text-gray-700">
@@ -114,7 +116,7 @@ const Homepage = () => {
                         </p>
                     </div>
                     <div className="p-6 text-center border-l-4 border-yellow-500 rounded-lg shadow-md bg-yellow-50">
-                        <h3 className="text-xl font-semibold text-yellow-600">
+                        <h3 className="text-xl font-semibold text-yellow-600 font-nunito">
                             Share Your Story
                         </h3>
                         <p className="mt-2 text-gray-700">
@@ -123,6 +125,10 @@ const Homepage = () => {
                         </p>
                     </div>
                 </div>
+            </div>
+
+            <div className="py-10">
+                <RunningCampaigns />
             </div>
 
             <div
@@ -151,12 +157,18 @@ const Homepage = () => {
                         today.
                     </p>
                     <div className="flex justify-center space-x-4">
-                        <button className="px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700">
+                        <Link
+                            to="/addCampaign"
+                            className="px-6 py-2 text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700"
+                        >
                             Start a Campaign
-                        </button>
-                        <button className="px-6 py-2 text-white bg-green-600 rounded-lg shadow hover:bg-green-700">
+                        </Link>
+                        <Link
+                            to="/campaigns"
+                            className="px-6 py-2 text-white bg-green-600 rounded-lg shadow hover:bg-green-700"
+                        >
                             Explore Campaigns
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </div>

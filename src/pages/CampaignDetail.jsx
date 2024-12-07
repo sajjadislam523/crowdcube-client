@@ -9,6 +9,8 @@ const CampaignDetail = () => {
     const [donationAmount, setDonationAmount] = useState(0);
     const [raisedAmount, setRaisedAmount] = useState(0);
 
+    console.log(campaign);
+
     useEffect(() => {
         if (campaign && campaign.minimumDonation) {
             setDonationAmount(campaign.minimumDonation);
@@ -33,7 +35,7 @@ const CampaignDetail = () => {
         description,
         creator,
         goal,
-        expirationDate,
+        expiredDate,
         minimumDonation,
     } = campaign;
 
@@ -129,14 +131,21 @@ const CampaignDetail = () => {
                         </p>
                         <p>
                             <strong>Expiration Date:</strong>{" "}
-                            {new Date(expirationDate).toLocaleDateString()}
+                            {new Date(expiredDate).toLocaleDateString()}
                         </p>
                     </div>
                     <button
-                        className="w-full px-4 py-2 text-sm font-bold text-white transition duration-300 bg-blue-500 rounded-lg sm:w-auto sm:text-base hover:bg-blue-600"
+                        className={`w-full px-4 py-2 text-sm font-bold text-white transition duration-300 rounded-lg sm:w-auto sm:text-base ${
+                            new Date(expiredDate) < new Date()
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-blue-500 hover:bg-blue-600"
+                        }`}
                         onClick={handleDonateClick}
+                        disabled={new Date(expiredDate) < new Date()}
                     >
-                        Donate Now
+                        {new Date(expiredDate) < new Date()
+                            ? "Campaign Expired"
+                            : "Donate Now"}
                     </button>
                 </div>
             </div>
