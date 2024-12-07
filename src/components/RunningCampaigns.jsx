@@ -12,7 +12,9 @@ const RunningCampaigns = () => {
     useEffect(() => {
         const fetchCampaigns = async () => {
             try {
-                const response = await fetch("http://localhost:5000/campaigns");
+                const response = await fetch(
+                    "https://crowdcube-server-fawn.vercel.app/campaigns"
+                );
                 const data = await response.json();
                 const runningCampaigns = data.filter(
                     (campaign) => new Date(campaign.expiredDate) > new Date()

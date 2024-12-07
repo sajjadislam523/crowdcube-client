@@ -44,13 +44,16 @@ const RegisterPage = () => {
 
             // Save user to the database
             const newUser = { name, email, photoURL, password };
-            const response = await fetch("http://localhost:5000/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newUser),
-            });
+            const response = await fetch(
+                "https://crowdcube-server-fawn.vercel.app/users",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newUser),
+                }
+            );
 
             if (response.ok) {
                 Swal.fire({

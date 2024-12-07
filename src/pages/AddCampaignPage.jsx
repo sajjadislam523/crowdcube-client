@@ -28,13 +28,16 @@ export default function AddCampaign() {
         e.preventDefault();
 
         try {
-            const response = await fetch("http://localhost:5000/campaigns", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formData),
-            });
+            const response = await fetch(
+                "https://crowdcube-server-fawn.vercel.app/campaigns",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
+                }
+            );
 
             if (response.ok) {
                 Swal.fire({

@@ -40,7 +40,9 @@ const LoginPage = () => {
     const saveUserToDatabase = async (user) => {
         try {
             const emailCheckRes = await fetch(
-                `http://localhost:5000/users/${encodeURIComponent(user.email)}`,
+                `https://crowdcube-server-fawn.vercel.app/users/${encodeURIComponent(
+                    user.email
+                )}`,
                 {
                     method: "GET",
                 }
@@ -62,17 +64,20 @@ const LoginPage = () => {
                 console.log("User with the same email already exists.");
                 return;
             } else {
-                const res = await fetch("http://localhost:5000/users", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        name: user.displayName,
-                        email: user.email,
-                        photo: user.photoURL,
-                    }),
-                });
+                const res = await fetch(
+                    "https://crowdcube-server-fawn.vercel.app/users",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            name: user.displayName,
+                            email: user.email,
+                            photo: user.photoURL,
+                        }),
+                    }
+                );
 
                 if (!res.ok) {
                     console.error(

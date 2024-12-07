@@ -21,7 +21,7 @@ const MyDonationsPage = () => {
         const fetchDonations = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/donations?email=${user.email}`
+                    `https://crowdcube-server-fawn.vercel.app/donations?email=${user.email}`
                 );
                 if (!response.ok) {
                     throw new Error("Failed to fetch donations");

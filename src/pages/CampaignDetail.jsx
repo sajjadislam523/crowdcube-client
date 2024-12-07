@@ -56,13 +56,16 @@ const CampaignDetail = () => {
                 amount: minimumDonation,
             };
 
-            const response = await fetch("http://localhost:5000/donate", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(donationDetails),
-            });
+            const response = await fetch(
+                "https://crowdcube-server-fawn.vercel.app/donate",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(donationDetails),
+                }
+            );
 
             const resultData = await response.json();
 

@@ -26,7 +26,7 @@ export default function UpdateCampaignPage() {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/campaigns/${campaign._id}`,
+                `https://crowdcube-server-fawn.vercel.app/campaigns/${campaign._id}`,
                 {
                     method: "PUT",
                     headers: {

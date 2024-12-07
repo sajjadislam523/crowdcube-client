@@ -20,7 +20,7 @@ const MyCampaignPage = () => {
         const fetchUserCampaigns = async () => {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/campaigns?email=${user.email}`
+                    `https://crowdcube-server-fawn.vercel.app/campaigns?email=${user.email}`
                 );
                 if (!response.ok) {
                     throw new Error("Failed to fetch campaigns");
@@ -49,7 +49,7 @@ const MyCampaignPage = () => {
         if (confirmation) {
             try {
                 const response = await fetch(
-                    `http://localhost:5000/campaigns/${id}`,
+                    `https://crowdcube-server-fawn.vercel.app/campaigns/${id}`,
                     {
                         method: "DELETE",
                     }
