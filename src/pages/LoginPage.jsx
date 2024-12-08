@@ -11,46 +11,30 @@ const LoginPage = () => {
 
     const navigate = useNavigate();
 
-    const handleLogin = async (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
 
         const form = new FormData(e.target);
         const email = form.get("email");
         const password = form.get("password");
 
-        const response = await fetch(
-            `https://crowdcube-server-fawn.vercel.app/user/${encodeURIComponent(
-                email
-            )}`
-        );
-        const user = await response.json();
-
-        if (user.password === password) {
-            logIn(email, password)
-                .then((res) => {
-                    setUser(res.user);
+        logIn(email, password)
+            .then((res) => {
+                setUser(res.user);
+                Swal.fire("Success", "User Logged in successfully", "success");
+                navigate("/");
+            })
+            .catch((err) => {
+                if (err.code === "auth/user-not-found") {
                     Swal.fire(
-                        "Success",
-                        "User Logged in successfully",
-                        "success"
+                        "Error",
+                        "Email not found. Please register first.",
+                        "error"
                     );
-                    navigate("/");
-                })
-                .catch((err) => {
-                    if (err.code === "auth/user-not-found") {
-                        Swal.fire(
-                            "Error",
-                            "Email not found. Please register first.",
-                            "error"
-                        );
-                    } else {
-                        Swal.fire("Error", "Invalid credentials", "error");
-                    }
-                });
-        } else {
-            // Password does not match
-            Swal.fire("Error", "Invalid password. Please try again.", "error");
-        }
+                } else {
+                    Swal.fire("Error", "Invalid credentials", "error");
+                }
+            });
     };
 
     const saveUserToDatabase = async (user) => {
