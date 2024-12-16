@@ -33,3 +33,5 @@ CrowdCube is built with modern web technologies to ensure a user-friendly, secur
     -   **Vercel** for the backend
 
 ---
+
+## [Live preview of the project](https://crowdcube-1f1e0.web.app)
