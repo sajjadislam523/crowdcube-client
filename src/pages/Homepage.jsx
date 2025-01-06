@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeProvider";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Fade, Slide, Zoom } from "react-awesome-reveal";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Link } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import schoolDonation from "../assets/sliderImage/schoolDonation.png";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import waterDonation from "../assets/sliderImage/donationWater.jpeg";
 import fundingBusiness from "../assets/sliderImage/fundingBusiness.webp";
-import { Link } from "react-router-dom";
+import schoolDonation from "../assets/sliderImage/schoolDonation.png";
 import RunningCampaigns from "../components/RunningCampaigns";
-import { Typewriter } from "react-simple-typewriter";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const Homepage = () => {
     const { theme } = useContext(ThemeContext);
@@ -44,7 +44,7 @@ const Homepage = () => {
         <div
             className={`${
                 theme === "light" ? "bg-gray-50" : "bg-gray-800 text-white"
-            }`}
+            } font-nunito`}
         >
             {/* Hero Section */}
             <div

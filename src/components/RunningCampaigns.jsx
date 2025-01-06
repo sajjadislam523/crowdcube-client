@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Loading from "./Loading";
-import { ThemeContext } from "../context/ThemeProvider";
 import { Typewriter } from "react-simple-typewriter";
+import { ThemeContext } from "../context/ThemeProvider";
+import Loading from "./Loading";
 
 const RunningCampaigns = () => {
     const [campaigns, setCampaigns] = useState([]);
@@ -55,11 +55,11 @@ const RunningCampaigns = () => {
                         delaySpeed={1500}
                     />
                 </h2>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {campaigns.map((campaign) => (
                         <div
                             key={campaign._id}
-                            className={`overflow-hidden border rounded-lg shadow-md ${
+                            className={`flex flex-col font-nunito overflow-hidden border rounded-lg shadow-md ${
                                 theme === "light"
                                     ? "bg-white border-gray-200"
                                     : "bg-gray-700 border-gray-600"
@@ -70,55 +70,58 @@ const RunningCampaigns = () => {
                                 alt={campaign.title}
                                 className="object-cover w-full h-40"
                             />
-                            <div className="p-4">
-                                <h3
-                                    className={`mb-2 text-xl font-semibold ${
-                                        theme === "light"
-                                            ? "text-gray-800"
-                                            : "text-gray-100"
-                                    }`}
-                                >
-                                    {campaign.title}
-                                </h3>
-                                <p
-                                    className={`mb-3 text-sm ${
-                                        theme === "light"
-                                            ? "text-gray-600"
-                                            : "text-gray-300"
-                                    }`}
-                                >
-                                    {campaign.description.slice(0, 100)}...
-                                </p>
-                                <p
-                                    className={`text-sm ${
-                                        theme === "light"
-                                            ? "text-gray-600"
-                                            : "text-gray-300"
-                                    }`}
-                                >
-                                    <strong>Goal:</strong> ${campaign.goal}
-                                </p>
-                                <p
-                                    className={`text-sm ${
-                                        theme === "light"
-                                            ? "text-gray-600"
-                                            : "text-gray-300"
-                                    }`}
-                                >
-                                    <strong>Raised:</strong> ${campaign.raised}
-                                </p>
-                                <p
-                                    className={`mt-2 text-xs ${
-                                        theme === "light"
-                                            ? "text-gray-500"
-                                            : "text-gray-400"
-                                    }`}
-                                >
-                                    <strong>Expires:</strong>{" "}
-                                    {new Date(
-                                        campaign.expiredDate
-                                    ).toLocaleDateString()}
-                                </p>
+                            <div className="flex flex-col justify-between flex-1 p-4">
+                                <div>
+                                    <h3
+                                        className={`mb-2 text-xls font-semibold ${
+                                            theme === "light"
+                                                ? "text-gray-800"
+                                                : "text-gray-100"
+                                        }`}
+                                    >
+                                        {campaign.title}
+                                    </h3>
+                                    <p
+                                        className={`mb-3 text-sm ${
+                                            theme === "light"
+                                                ? "text-gray-600"
+                                                : "text-gray-300"
+                                        }`}
+                                    >
+                                        {campaign.description.slice(0, 80)}...
+                                    </p>
+                                    <p
+                                        className={`text-sm ${
+                                            theme === "light"
+                                                ? "text-gray-600"
+                                                : "text-gray-300"
+                                        }`}
+                                    >
+                                        <strong>Goal:</strong> ${campaign.goal}
+                                    </p>
+                                    <p
+                                        className={`text-sm ${
+                                            theme === "light"
+                                                ? "text-gray-600"
+                                                : "text-gray-300"
+                                        }`}
+                                    >
+                                        <strong>Raised:</strong> $
+                                        {campaign.raised}
+                                    </p>
+                                    <p
+                                        className={`mt-2 text-xs ${
+                                            theme === "light"
+                                                ? "text-gray-500"
+                                                : "text-gray-400"
+                                        }`}
+                                    >
+                                        <strong>Expires:</strong>{" "}
+                                        {new Date(
+                                            campaign.expiredDate
+                                        ).toLocaleDateString()}
+                                    </p>
+                                </div>
                                 <Link
                                     to={`/campaigns/${campaign._id}`}
                                     className={`inline-block px-4 py-2 mt-4 text-sm font-semibold text-white transition rounded ${
