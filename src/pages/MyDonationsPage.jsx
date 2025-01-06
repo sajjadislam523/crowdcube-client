@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
-import { ThemeContext } from "../context/ThemeProvider";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 import Loading from "../components/Loading";
+import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const MyDonationsPage = () => {
     const [donations, setDonations] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { theme } = useContext(ThemeContext);
-
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
@@ -71,68 +71,37 @@ const MyDonationsPage = () => {
             {donations.length === 0 ? (
                 <p className="text-center text-gray-500">No donations found.</p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="w-full border border-collapse border-gray-300">
-                        <thead>
-                            <tr
-                                className={`${
-                                    theme === "dark"
-                                        ? "bg-gray-700"
-                                        : "bg-gray-200"
-                                }`}
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {donations.map((donation) => (
+                        <div
+                            key={donation.id}
+                            className={`p-4 border rounded-md ${
+                                theme === "dark"
+                                    ? "bg-gray-800 text-white"
+                                    : "bg-white text-gray-900"
+                            }`}
+                        >
+                            <h3 className="text-lg font-bold">
+                                {donation.campaignTitle}
+                            </h3>
+                            <p>
+                                Donated:{" "}
+                                <span className="font-semibold">
+                                    ${donation.amount}
+                                </span>
+                            </p>
+                            <p>
+                                Date:{" "}
+                                {new Date(donation.date).toLocaleDateString()}
+                            </p>
+                            <Link
+                                to={`/campaigns/${donation.campaignId}`}
+                                className="mt-2 text-right text-blue-500 underline"
                             >
-                                <th
-                                    className={`px-4 py-2 border border-gray-300 ${
-                                        theme === "dark"
-                                            ? "text-gray-300"
-                                            : "text-gray-800"
-                                    }`}
-                                >
-                                    Campaign Title
-                                </th>
-                                <th
-                                    className={`px-4 py-2 border border-gray-300 ${
-                                        theme === "dark"
-                                            ? "text-gray-300"
-                                            : "text-gray-800"
-                                    }`}
-                                >
-                                    Donated
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {donations.map((donation, index) => (
-                                <tr
-                                    key={index}
-                                    className={`${
-                                        theme === "dark"
-                                            ? "bg-gray-800"
-                                            : "bg-white"
-                                    } `}
-                                >
-                                    <td
-                                        className={`px-4 py-2 border border-gray-300 ${
-                                            theme === "dark"
-                                                ? "text-gray-300"
-                                                : "text-gray-800"
-                                        }`}
-                                    >
-                                        {donation.campaignTitle}
-                                    </td>
-                                    <td
-                                        className={`px-4 py-2 border border-gray-300 ${
-                                            theme === "dark"
-                                                ? "text-gray-300"
-                                                : "text-gray-800"
-                                        }`}
-                                    >
-                                        ${donation.amount}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                Details
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             )}
         </div>
