@@ -1,8 +1,8 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
-import { FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -30,18 +30,23 @@ const Navbar = () => {
                     : "bg-gray-800 text-gray-100"
             }`}
         >
-            <div className="container flex items-center justify-between p-4 mx-auto">
-                <Link to="/" className="text-3xl font-extrabold tracking-wider">
+            <div className="container flex items-center justify-between px-4 py-4 mx-auto lg:px-8">
+                {/* Logo */}
+                <Link
+                    to="/"
+                    className="text-2xl font-extrabold tracking-wider lg:text-3xl"
+                >
                     CrowdCube
                 </Link>
 
-                <ul className="items-center hidden space-x-6 transition-all duration-300 lg:flex">
+                {/* Desktop Menu */}
+                <ul className="hidden space-x-4 lg:flex">
                     {navLinks.map((link) => (
                         <li key={link.to}>
                             <NavLink
                                 to={link.to}
                                 className={({ isActive }) =>
-                                    `block transition duration-100 ${
+                                    `block transition duration-100 text-sm ${
                                         isActive
                                             ? "underline"
                                             : theme === "light"
@@ -56,10 +61,12 @@ const Navbar = () => {
                     ))}
                 </ul>
 
+                {/* Theme Toggle and User Actions */}
                 <div className="flex items-center gap-4">
+                    {/* Theme Toggle Button */}
                     <button
                         onClick={toggleTheme}
-                        className={`px-4 py-2 text-sm font-bold transition duration-300 rounded-md ${
+                        className={`px-3 py-2 text-sm font-bold rounded-md transition duration-300 ${
                             theme === "light"
                                 ? "text-black bg-gray-200 hover:bg-gray-300"
                                 : "text-white bg-gray-600 hover:bg-gray-700"
@@ -68,22 +75,23 @@ const Navbar = () => {
                         {theme === "light" ? "🌙" : "☀️"}
                     </button>
 
-                    {user ? (
-                        <img
-                            src={user.photoURL || ""}
-                            alt="User Avatar"
-                            className="w-8 h-8 border-2 border-white rounded-full shadow cursor-pointer"
-                            title={user.displayName}
-                        />
-                    ) : null}
-                    <div className="hidden gap-2 md:flex">
+                    {/* User Actions */}
+                    <div className="items-center hidden gap-2 md:flex">
                         {user ? (
-                            <button
-                                onClick={logOut}
-                                className="px-4 py-2 text-sm font-bold text-white bg-red-500 rounded-md shadow hover:bg-red-600"
-                            >
-                                Log out
-                            </button>
+                            <>
+                                <img
+                                    src={user.photoURL || ""}
+                                    alt="User Avatar"
+                                    className="w-8 h-8 border-2 border-white rounded-full shadow cursor-pointer"
+                                    title={user.displayName}
+                                />
+                                <button
+                                    onClick={logOut}
+                                    className="px-4 py-2 text-sm font-bold text-white bg-red-500 rounded-md shadow hover:bg-red-600"
+                                >
+                                    Log out
+                                </button>
+                            </>
                         ) : (
                             <>
                                 <Link
@@ -101,13 +109,17 @@ const Navbar = () => {
                             </>
                         )}
                     </div>
+
+                    {/* Mobile Menu Toggle */}
                     <div className="z-10 lg:hidden">
-                        <button onClick={handleMenuToggle} className="text-xl">
+                        <button onClick={handleMenuToggle} className="text-2xl">
                             {isMenuOpen ? <FaTimes /> : <FaBars />}
                         </button>
                     </div>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
             <div
                 className={`absolute top-0 left-0 w-full transition-transform duration-500 ease-in-out lg:hidden ${
                     isMenuOpen ? "translate-y-0" : "-translate-y-full"
@@ -117,7 +129,7 @@ const Navbar = () => {
                         : "bg-gray-800 text-gray-100"
                 }`}
             >
-                <ul className="p-4 space-y-4">
+                <ul className="flex flex-col items-center p-4 space-y-4">
                     {navLinks.map((link) => (
                         <li key={link.to}>
                             <NavLink
@@ -131,13 +143,13 @@ const Navbar = () => {
                                             : "hover:text-yellow-500"
                                     }`
                                 }
+                                onClick={handleMenuToggle} // Close menu on link click
                             >
                                 {link.label}
                             </NavLink>
                         </li>
                     ))}
-
-                    <div className="flex gap-4 md:hidden">
+                    <div className="flex flex-col w-full gap-4">
                         {user ? (
                             <button
                                 onClick={logOut}
@@ -158,6 +170,7 @@ const Navbar = () => {
                                             ? "text-blue-600 bg-white hover:bg-gray-200"
                                             : "text-blue-200 bg-gray-700 hover:bg-gray-600"
                                     }`}
+                                    onClick={handleMenuToggle}
                                 >
                                     Log in
                                 </Link>
@@ -168,6 +181,7 @@ const Navbar = () => {
                                             ? "text-blue-600 bg-white hover:bg-gray-200"
                                             : "text-blue-200 bg-gray-700 hover:bg-gray-600"
                                     }`}
+                                    onClick={handleMenuToggle}
                                 >
                                     Register
                                 </Link>

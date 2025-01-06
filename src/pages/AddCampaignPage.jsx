@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
+import { Typewriter } from "react-simple-typewriter";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthProvider";
 import { ThemeContext } from "../context/ThemeProvider";
-import { Typewriter } from "react-simple-typewriter";
 
 export default function AddCampaign() {
     const { user } = useContext(AuthContext);
@@ -71,7 +71,7 @@ export default function AddCampaign() {
 
     return (
         <div
-            className={`container py-10 mx-auto font-nunito ${
+            className={` py-10 px-8 font-nunito ${
                 theme === "dark" ? "bg-gray-800" : "bg-white"
             }`}
         >

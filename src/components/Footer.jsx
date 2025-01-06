@@ -1,6 +1,7 @@
 import { useContext } from "react";
+import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
+import icon from "../assets/icon/favicon.png";
 import { ThemeContext } from "../context/ThemeProvider";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
     const { theme } = useContext(ThemeContext);
@@ -16,7 +17,16 @@ const Footer = () => {
             <div className="container grid grid-cols-1 gap-8 mx-auto md:grid-cols-3">
                 {/* About Section */}
                 <div>
-                    <h3 className="mb-4 text-xl font-semibold">About Us</h3>
+                    <div className="flex items-center gap-2 mb-4">
+                        <img
+                            src={icon}
+                            className="inline w-8 h-8 rounded-full"
+                            alt=""
+                        />
+                        <h3 className="text-2xl font-bold font-nunito">
+                            CrowdCube
+                        </h3>
+                    </div>
                     <p className="text-sm leading-relaxed">
                         Our platform empowers individuals and communities to
                         create impactful donation campaigns. Join us in

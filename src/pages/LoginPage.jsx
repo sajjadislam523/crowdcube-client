@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeProvider";
-import { AuthContext } from "../context/AuthProvider";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const LoginPage = () => {
     const { theme } = useContext(ThemeContext);
@@ -96,7 +96,8 @@ const LoginPage = () => {
         }
     };
 
-    const googleLogin = () => {
+    const googleLogin = (e) => {
+        e.preventDefault();
         handleGoogleLogIn()
             .then(async (res) => {
                 setUser(res.user);

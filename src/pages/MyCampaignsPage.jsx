@@ -1,10 +1,12 @@
-import { useEffect, useState, useContext } from "react";
-import { AuthContext } from "../context/AuthProvider";
-import { Link } from "react-router-dom";
-import Loading from "../components/Loading";
-import { ThemeContext } from "../context/ThemeProvider";
+import { useContext, useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import { FaRegEdit } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
+import Loading from "../components/Loading";
+import { AuthContext } from "../context/AuthProvider";
+import { ThemeContext } from "../context/ThemeProvider";
 
 const MyCampaignPage = () => {
     const { user } = useContext(AuthContext);
@@ -99,18 +101,23 @@ const MyCampaignPage = () => {
                     {campaigns.map((campaign) => (
                         <div
                             key={campaign._id}
-                            className={`p-6 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ${
+                            className={`p-6 border rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col ${
                                 theme === "dark"
                                     ? "bg-gray-800 border-gray-700 text-gray-300"
                                     : "bg-white border-gray-300 text-gray-900"
                             }`}
                         >
+                            <img
+                                src={campaign.thumbnail}
+                                className="w-12 h-12"
+                                alt=""
+                            />
                             <h2 className="mb-3 text-2xl font-semibold">
                                 {campaign.title}
                             </h2>
                             <Fade duration={800} delay={100} cascade>
                                 <p
-                                    className={`mb-4 text-sm ${
+                                    className={`mb-4 text-sm flex-grow ${
                                         theme === "dark"
                                             ? "text-gray-300"
                                             : "text-gray-700"
@@ -119,26 +126,26 @@ const MyCampaignPage = () => {
                                     {campaign.description}
                                 </p>
                             </Fade>
-                            <div className="flex justify-between mt-4">
+                            <div className="flex items-center gap-2 mt-auto">
                                 <Link
                                     to={`/updateCampaign/${campaign._id}`}
-                                    className={`px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 ${
+                                    className={`px-4 py-2 rounded-lg text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 ${
                                         theme === "dark"
-                                            ? "bg-blue-600"
-                                            : "bg-blue-500"
+                                            ? "bg-blue-600 focus:ring-blue-500"
+                                            : "bg-blue-500 focus:ring-blue-600"
                                     }`}
                                 >
-                                    Update
+                                    <FaRegEdit />
                                 </Link>
                                 <button
                                     onClick={() => handleDelete(campaign._id)}
-                                    className={`px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-opacity-50 ${
+                                    className={`px-4 py-2 rounded-lg text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-opacity-50 ${
                                         theme === "dark"
-                                            ? "bg-red-600"
-                                            : "bg-red-500"
+                                            ? "bg-red-600 focus:ring-red-500"
+                                            : "bg-red-500 focus:ring-red-600"
                                     }`}
                                 >
-                                    Delete
+                                    <FaTrash />
                                 </button>
                             </div>
                         </div>

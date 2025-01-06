@@ -1,8 +1,8 @@
-import { useLoaderData } from "react-router-dom";
-import CampaignCard from "./CampaignCard";
-import { Typewriter } from "react-simple-typewriter";
 import { useContext, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
 import { ThemeContext } from "../context/ThemeProvider";
+import CampaignCard from "./CampaignCard";
 
 const AllCampaignsPage = () => {
     const campaigns = useLoaderData();
@@ -63,7 +63,7 @@ const AllCampaignsPage = () => {
                 </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {sortedCampaigns.map((campaign) => (
                     <CampaignCard key={campaign._id} campaigns={campaign} />
                 ))}
