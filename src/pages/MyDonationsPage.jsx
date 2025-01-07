@@ -50,7 +50,7 @@ const MyDonationsPage = () => {
 
     return (
         <div
-            className={`py-10 px-12 mx-auto h-screen font-nunito ${
+            className={`py-10 px-12 mx-auto font-nunito ${
                 theme === "dark"
                     ? "bg-gray-900 text-white"
                     : "bg-white text-gray-900"
@@ -81,16 +81,16 @@ const MyDonationsPage = () => {
                                     : "bg-white text-gray-900"
                             }`}
                         >
-                            <h3 className="text-lg font-bold">
+                            <h3 className="text-sm font-bold lg:text-lg">
                                 {donation.campaignTitle}
                             </h3>
-                            <p>
+                            <p className="text-sm lg:text-base">
                                 Donated:{" "}
-                                <span className="font-semibold">
+                                <span className="font-semibold ">
                                     ${donation.amount}
                                 </span>
                             </p>
-                            <p>
+                            <p className="text-sm lg:text-base">
                                 Date:{" "}
                                 {new Date(donation.date).toLocaleDateString()}
                             </p>

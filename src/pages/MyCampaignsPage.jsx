@@ -75,13 +75,13 @@ const MyCampaignPage = () => {
 
     return (
         <div
-            className={`py-12 px-6 font-nunito h-screen
+            className={`py-12 px-6 font-nunito
                 theme === "dark"
                     ? "bg-gray-900 text-white"
                     : "bg-white text-gray-900"
             }`}
         >
-            <h1 className="mb-8 text-3xl font-bold text-center">
+            <h1 className="mb-8 text-2xl font-bold text-center lg:text-3xl">
                 <Typewriter
                     words={["My Campaigns"]}
                     loop={true}
@@ -112,7 +112,7 @@ const MyCampaignPage = () => {
                                 className="w-12 h-12"
                                 alt=""
                             />
-                            <h2 className="mb-3 text-2xl font-semibold">
+                            <h2 className="mb-3 text-xl font-semibold lg:text-2xl">
                                 {campaign.title}
                             </h2>
                             <Fade duration={800} delay={100} cascade>
